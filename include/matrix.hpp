@@ -76,7 +76,7 @@ scale(const real_t scale, const real_t x[], real_t x_scaled[])
 
 //* computes <x, y> for two arrays of DIM size
 template <uint_t DIM>
-static const real_t
+static real_t
 dot_product(const real_t x[], const real_t y[])
 {
 	real_t res = 0;
