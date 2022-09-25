@@ -12,13 +12,15 @@ constexpr real_t C[n_row * m_col] = {4., 5., 6., 1., 2., 3.};
 int
 main()
 {
-	
-	real_t sel[m_col];
-	matrix_op::select_row<n_row>(1, A, sel);
 	real_t B[n_row * m_col];
+	{
+	const real_t (&sel)[m_col] = *matrix_op::select_row<n_row, m_col>(1, A);
 	matrix_op::replace_row<n_row>(0, sel, B);
-	matrix_op::select_row<n_row>(0, A, sel);
+	}
+	{
+	const real_t (&sel)[m_col] = *matrix_op::select_row<n_row, m_col>(0, A);
 	matrix_op::replace_row<n_row>(1, sel, B);
+	}
 
 	bool success = true;
 

@@ -34,8 +34,7 @@ static void
 right_multiply(const real_t (&A)[N_ROW * M_COL], const real_t (&x)[M_COL], real_t (&mul)[N_ROW])
 {
 	for (uint_t i = 0; i < N_ROW; ++i) {
-		real_t a[M_COL]; 
-		select_row<N_ROW>(i, A, a);
+		const real_t (&a)[M_COL] = *matrix_op::select_row<N_ROW, M_COL>(1, A);
 		mul[i] = dot_product<M_COL>(a, x);
 	}
 }
