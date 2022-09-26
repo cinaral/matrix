@@ -6,31 +6,12 @@ project(
 	LANGUAGES CXX
 )
 
-Include(FetchContent)
 
-#********#
-#* Self *#
-#********#
+
 if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
 	option(SINGLE_PRECISION "Single precision" OFF)
 	option(BUILD_TESTS "Build tests" ON)
 	option(BUILD_BENCHMARKS "Build bencmarks" ON)
-
-	set(CMAKE_CXX_STANDARD 17)
-	set(CMAKE_CXX_STANDARD_REQUIRED ON)
-	set(CMAKE_CXX_EXTENSIONS OFF)
-
-	add_compile_options(
-		-fdiagnostics-color=always #* colored debug output
-		-fmessage-length=0 #* disable line wrapping (default=72 char) 
-		-Wall #* all warnings
-		-Wextra #* more warnings
-		-Wpedantic #* more warnings
-	)
-
-	if(SINGLE_PRECISION)
-		add_compile_options(-D__USE_SINGLE_PRECISION__) #* use single precision floats
-	endif()
 
 	#* where to look for the project header and source files
 	set(INCLUDE_DIR ${CMAKE_CURRENT_LIST_DIR}/include)
@@ -59,6 +40,23 @@ if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
 	#* set up output directories
 	set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 	file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/dat)
+
+	#* project compile options
+	set(CMAKE_CXX_STANDARD 17)
+	set(CMAKE_CXX_STANDARD_REQUIRED ON)
+	set(CMAKE_CXX_EXTENSIONS OFF)
+
+	add_compile_options(
+		-fdiagnostics-color=always #* colored debug output
+		-fmessage-length=0 #* disable line wrapping (default=72 char) 
+		-Wall #* all warnings
+		-Wextra #* more warnings
+		-Wpedantic #* more warnings
+	)
+
+	if(SINGLE_PRECISION)
+		add_compile_options(-D__USE_SINGLE_PRECISION__) #* use single precision floats
+	endif()
 	
 	#***********#
 	#* Testing *#
@@ -121,6 +119,8 @@ if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
 		WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 		DEPENDS ${PACKAGE_FILES}
 	)
-	add_custom_target(src_package DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-src.zip)
-
+	add_custom_target(
+		src_package 
+		DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-src.zip
+	)
 endif()
