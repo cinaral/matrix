@@ -37,11 +37,11 @@ namespace matrix_op
 //* inputs:
 //* scale - scaling factor
 //* x - [DIM] array
-template <uint_t DIM>
+template <Uint_T DIM>
 static void
-scale(const real_t scale, const real_t (&x)[DIM], real_t (&x_scaled)[DIM])
+scale(const Real_T scale, const Real_T (&x)[DIM], Real_T (&x_scaled)[DIM])
 {
-	for (uint_t i = 0; i < DIM; ++i) {
+	for (Uint_T i = 0; i < DIM; ++i) {
 		x_scaled[i] = scale * x[i];
 	}
 }
@@ -52,11 +52,11 @@ scale(const real_t scale, const real_t (&x)[DIM], real_t (&x_scaled)[DIM])
 //* inputs:
 //* x - [DIM] array 1
 //* y - [DIM] array 2
-template <uint_t DIM>
+template <Uint_T DIM>
 static void
-sum(const real_t (&x)[DIM], const real_t (&y)[DIM], real_t (&sum)[DIM])
+sum(const Real_T (&x)[DIM], const Real_T (&y)[DIM], Real_T (&sum)[DIM])
 {
-	for (uint_t i = 0; i < DIM; ++i) {
+	for (Uint_T i = 0; i < DIM; ++i) {
 		sum[i] = x[i] + y[i];
 	}
 }
@@ -67,11 +67,11 @@ sum(const real_t (&x)[DIM], const real_t (&y)[DIM], real_t (&sum)[DIM])
 //* inputs:
 //* x - [DIM] array 1
 //* y - [DIM] array 2
-template <uint_t DIM>
+template <Uint_T DIM>
 static void
-subtract(const real_t (&x)[DIM], const real_t (&y)[DIM], real_t (&sub)[DIM])
+subtract(const Real_T (&x)[DIM], const Real_T (&y)[DIM], Real_T (&sub)[DIM])
 {
-	for (uint_t i = 0; i < DIM; ++i) {
+	for (Uint_T i = 0; i < DIM; ++i) {
 		sub[i] = x[i] - y[i];
 	}
 }
@@ -84,12 +84,12 @@ subtract(const real_t (&x)[DIM], const real_t (&y)[DIM], real_t (&sub)[DIM])
 //* x - [DIM] array 1
 //* y_weight - weight of y
 //* y - [DIM] array 2
-template <uint_t DIM>
+template <Uint_T DIM>
 static void
-weighted_sum(const real_t x_weight, const real_t (&x)[DIM], const real_t y_weight, const real_t (&y)[DIM],
-             real_t (&sum)[DIM])
+weighted_sum(const Real_T x_weight, const Real_T (&x)[DIM], const Real_T y_weight, const Real_T (&y)[DIM],
+             Real_T (&sum)[DIM])
 {
-	for (uint_t i = 0; i < DIM; ++i) {
+	for (Uint_T i = 0; i < DIM; ++i) {
 		sum[i] = x_weight * x[i] + y_weight * y[i];
 	}
 }

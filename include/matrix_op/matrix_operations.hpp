@@ -38,12 +38,12 @@ namespace matrix_op
 //*
 //* inputs:
 //* A - [N_ROW * M_COL] matrix
-template <uint_t N_ROW, uint_t M_COL>
+template <Uint_T N_ROW, Uint_T M_COL>
 static void
-transpose(const real_t (&A)[N_ROW * M_COL], real_t (&A_tr)[N_ROW * M_COL])
+transpose(const Real_T (&A)[N_ROW * M_COL], Real_T (&A_tr)[N_ROW * M_COL])
 {
-	for (uint_t i = 0; i < N_ROW; ++i) {
-		for (uint_t j = 0; j < M_COL; ++j) {
+	for (Uint_T i = 0; i < N_ROW; ++i) {
+		for (Uint_T j = 0; j < M_COL; ++j) {
 			A_tr[j * N_ROW + i] = A[i * M_COL + j];
 		}
 	}
@@ -55,12 +55,12 @@ transpose(const real_t (&A)[N_ROW * M_COL], real_t (&A_tr)[N_ROW * M_COL])
 //* inputs:
 //* A - [N_ROW * M_COL] matrix
 //* x - [M_COL] vector
-template <uint_t N_ROW, uint_t M_COL>
+template <Uint_T N_ROW, Uint_T M_COL>
 static void
-right_multiply(const real_t (&A)[N_ROW * M_COL], const real_t (&x)[M_COL], real_t (&mul)[N_ROW])
+right_multiply(const Real_T (&A)[N_ROW * M_COL], const Real_T (&x)[M_COL], Real_T (&mul)[N_ROW])
 {
-	for (uint_t i = 0; i < N_ROW; ++i) {
-		const real_t (&a)[M_COL] = *matrix_op::select_row<N_ROW, M_COL>(i, A);
+	for (Uint_T i = 0; i < N_ROW; ++i) {
+		const Real_T (&a)[M_COL] = *matrix_op::select_row<N_ROW, M_COL>(i, A);
 		mul[i] = dot_product<M_COL>(a, x);
 	}
 }
@@ -71,17 +71,17 @@ right_multiply(const real_t (&A)[N_ROW * M_COL], const real_t (&x)[M_COL], real_
 //* inputs:
 //* A - [N_ROW_A * M_COL_A] matrix
 //* B - [M_COL_A * M_COL_B] matrix
-template <uint_t N_ROW_A, uint_t M_COL_A, uint_t M_COL_B>
+template <Uint_T N_ROW_A, Uint_T M_COL_A, Uint_T M_COL_B>
 static void
-multiply(const real_t (&A)[N_ROW_A * M_COL_A], const real_t (&B)[M_COL_A * M_COL_B], real_t (&mul)[N_ROW_A * M_COL_B])
+multiply(const Real_T (&A)[N_ROW_A * M_COL_A], const Real_T (&B)[M_COL_A * M_COL_B], Real_T (&mul)[N_ROW_A * M_COL_B])
 {
-	for (uint_t i = 0; i < N_ROW_A * M_COL_B; ++i) {
+	for (Uint_T i = 0; i < N_ROW_A * M_COL_B; ++i) {
 		mul[i] = 0;
 	}
 
-	for (uint_t i = 0; i < N_ROW_A; ++i) {
-		for (uint_t k = 0; k < M_COL_A; ++k) {
-			for (uint_t j = 0; j < M_COL_B; ++j) {
+	for (Uint_T i = 0; i < N_ROW_A; ++i) {
+		for (Uint_T k = 0; k < M_COL_A; ++k) {
+			for (Uint_T j = 0; j < M_COL_B; ++j) {
 				mul[i * M_COL_A + j] += A[i * M_COL_A + k] * B[k * M_COL_B + j];
 			}
 		}
