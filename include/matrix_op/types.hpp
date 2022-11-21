@@ -27,9 +27,11 @@
 #ifndef TYPES_HPP_CINARAL_220924_1452
 #define TYPES_HPP_CINARAL_220924_1452
 
+#include <cstddef>
+
 namespace matrix_op
 {
-using Uint_T = unsigned long long int;
+using size_t = std::size_t;
 #ifdef __USE_SINGLE_PRECISION__
 using Real_T = float;
 #else

@@ -40,8 +40,8 @@ namespace matrix_op
 //*
 //* usage:
 //* const Real_T (&row) = *matrix_op::select_row<N_ROW, M_COL>(row_idx, mat);
-template <Uint_T N_ROW, Uint_T M_COL>
-static const Real_T (*select_row(const Uint_T row_idx, const Real_T (&mat)[N_ROW * M_COL]))[M_COL]
+template <size_t N_ROW, size_t M_COL>
+static const Real_T (*select_row(const size_t row_idx, const Real_T (&mat)[N_ROW * M_COL]))[M_COL]
 {
 	const Real_T(*row_ptr)[M_COL] = (Real_T(*)[M_COL])(mat + row_idx * M_COL);
 	return row_ptr;
@@ -54,13 +54,13 @@ static const Real_T (*select_row(const Uint_T row_idx, const Real_T (&mat)[N_ROW
 //* 2. row - M_COL vector
 //* usage:
 //* matrix_op::replace_row<N_ROW, [OPTIONAL] M_COL>(row_idx, row, mat);
-template <Uint_T N_ROW, Uint_T M_COL>
+template <size_t N_ROW, size_t M_COL>
 static void
-replace_row(const Uint_T row_idx, const Real_T (&row)[M_COL], Real_T (&mat)[N_ROW * M_COL])
+replace_row(const size_t row_idx, const Real_T (&row)[M_COL], Real_T (&mat)[N_ROW * M_COL])
 {
 	//* faster than std::memmove(mat + row_idx * M_COL, row, M_COL * sizeof(Real_T));
 	//* identical to: *mat + row_idx * M_COL + i = *row + i
-	for (Uint_T i = 0; i < M_COL; ++i) {
+	for (size_t i = 0; i < M_COL; ++i) {
 		mat[row_idx * M_COL + i] = row[i];
 	}
 }

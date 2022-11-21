@@ -37,13 +37,13 @@ namespace matrix_op
 //* inputs:
 //* x - [DIM] vector 1
 //* y - [DIM] vector 2
-template <Uint_T DIM>
+template <size_t DIM>
 static Real_T
 dot_product(const Real_T (&x)[DIM], const Real_T (&y)[DIM])
 {
 	Real_T res = 0;
 
-	for (Uint_T i = 0; i < DIM; ++i) {
+	for (size_t i = 0; i < DIM; ++i) {
 		res += x[i] * y[i];
 	}
 	return res;

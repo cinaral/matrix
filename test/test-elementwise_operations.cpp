@@ -1,9 +1,9 @@
 #include "matrix_op/elementwise_operations.hpp"
 
-using Uint_T = matrix_op::Uint_T;
+using size_t = matrix_op::size_t;
 using Real_T = matrix_op::Real_T;
 
-constexpr Uint_T dim = 3;
+constexpr size_t dim = 3;
 constexpr Real_T x[dim] = {1, 1.5, -2};
 constexpr Real_T y[dim] = {-.5, -.5, 1};
 constexpr Real_T z[dim] = {.5, 1, -1};
@@ -25,7 +25,7 @@ main()
 
 	bool success = true;
 
-	for (Uint_T i = 0; i < dim; ++i) {
+	for (size_t i = 0; i < dim; ++i) {
 		if (zeros_1[i] || zeros_2[i]) {
 			success = false;
 		}

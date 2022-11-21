@@ -38,12 +38,12 @@ namespace matrix_op
 //*
 //* inputs:
 //* A - [N_ROW * M_COL] matrix
-template <Uint_T N_ROW, Uint_T M_COL>
+template <size_t N_ROW, size_t M_COL>
 static void
 transpose(const Real_T (&A)[N_ROW * M_COL], Real_T (&A_tr)[N_ROW * M_COL])
 {
-	for (Uint_T i = 0; i < N_ROW; ++i) {
-		for (Uint_T j = 0; j < M_COL; ++j) {
+	for (size_t i = 0; i < N_ROW; ++i) {
+		for (size_t j = 0; j < M_COL; ++j) {
 			A_tr[j * N_ROW + i] = A[i * M_COL + j];
 		}
 	}
@@ -55,11 +55,11 @@ transpose(const Real_T (&A)[N_ROW * M_COL], Real_T (&A_tr)[N_ROW * M_COL])
 //* inputs:
 //* A - [N_ROW * M_COL] matrix
 //* x - [M_COL] vector
-template <Uint_T N_ROW, Uint_T M_COL>
+template <size_t N_ROW, size_t M_COL>
 static void
 right_multiply(const Real_T (&A)[N_ROW * M_COL], const Real_T (&x)[M_COL], Real_T (&mul)[N_ROW])
 {
-	for (Uint_T i = 0; i < N_ROW; ++i) {
+	for (size_t i = 0; i < N_ROW; ++i) {
 		const Real_T (&a)[M_COL] = *matrix_op::select_row<N_ROW, M_COL>(i, A);
 		mul[i] = dot_product<M_COL>(a, x);
 	}
@@ -71,17 +71,17 @@ right_multiply(const Real_T (&A)[N_ROW * M_COL], const Real_T (&x)[M_COL], Real_
 //* inputs:
 //* A - [N_ROW_A * M_COL_A] matrix
 //* B - [M_COL_A * M_COL_B] matrix
-template <Uint_T N_ROW_A, Uint_T M_COL_A, Uint_T M_COL_B>
+template <size_t N_ROW_A, size_t M_COL_A, size_t M_COL_B>
 static void
 multiply(const Real_T (&A)[N_ROW_A * M_COL_A], const Real_T (&B)[M_COL_A * M_COL_B], Real_T (&mul)[N_ROW_A * M_COL_B])
 {
-	for (Uint_T i = 0; i < N_ROW_A * M_COL_B; ++i) {
+	for (size_t i = 0; i < N_ROW_A * M_COL_B; ++i) {
 		mul[i] = 0;
 	}
 
-	for (Uint_T i = 0; i < N_ROW_A; ++i) {
-		for (Uint_T k = 0; k < M_COL_A; ++k) {
-			for (Uint_T j = 0; j < M_COL_B; ++j) {
+	for (size_t i = 0; i < N_ROW_A; ++i) {
+		for (size_t k = 0; k < M_COL_A; ++k) {
+			for (size_t j = 0; j < M_COL_B; ++j) {
 				mul[i * M_COL_A + j] += A[i * M_COL_A + k] * B[k * M_COL_B + j];
 			}
 		}
