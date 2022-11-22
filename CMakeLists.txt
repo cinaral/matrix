@@ -66,18 +66,19 @@ if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
 
 		foreach(ELEMENT ${TEST_NAMES})
 			add_executable(
-				${ELEMENT} 
+				${ELEMENT}-test
 				${TEST_DIR}/${ELEMENT}.cpp						
 			)
-
 			target_include_directories(
-				${ELEMENT} PRIVATE 
+				${ELEMENT}-test PRIVATE 
 				${INCLUDE_DIR}
 			)
-
+			target_compile_options(
+				${ELEMENT}-test PRIVATE
+			)
 			add_test(
-				NAME ${ELEMENT} 
-				COMMAND ${ELEMENT}
+				NAME ${ELEMENT}-test 
+				COMMAND ${ELEMENT}-test
 				WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
 			)
 		endforeach(ELEMENT ${TEST_NAMES})
@@ -90,17 +91,15 @@ if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
 
 		foreach(ELEMENT ${BENCHMARK_NAMES})
 			add_executable(
-				${ELEMENT} 
+				${ELEMENT}-benchmark 
 				${BENCHMARK_DIR}/${ELEMENT}.cpp
 			)
-
 			target_include_directories(
-				${ELEMENT} PRIVATE 
+				${ELEMENT}-benchmark  PRIVATE 
 				${INCLUDE_DIR}	
 			)
-
 			target_compile_options(
-				${ELEMENT} PUBLIC
+				${ELEMENT}-benchmark PRIVATE
 				-O3 #* optimization level
 				-m64 #* x64
 				-mavx2 #* enable avx2

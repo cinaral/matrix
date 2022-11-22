@@ -1,7 +1,7 @@
 #include "matrix_op/matrix_operations.hpp"
 
-using size_t = matrix_op::size_t;
-using Real_T = matrix_op::Real_T;
+using matrix_op::size_t;
+using matrix_op::Real_T;
 
 constexpr size_t n_row_A = 2;
 constexpr size_t m_col_A = 3;

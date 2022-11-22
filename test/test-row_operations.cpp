@@ -1,8 +1,8 @@
 #include "matrix_op/row_operations.hpp"
 #include <iostream>
 
-using size_t = matrix_op::size_t;
-using Real_T = matrix_op::Real_T;
+using matrix_op::size_t;
+using matrix_op::Real_T;
 
 constexpr size_t n_row = 2;
 constexpr size_t m_col = 3;
