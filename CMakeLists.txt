@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.13)
 
 project(
 	matrix_op
-	VERSION 1.0.3
+	VERSION 1.0.4
 	LANGUAGES CXX
 )
 
@@ -21,10 +21,10 @@ if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
 
 	#* tests, examples, benchmarks to compile
 	set(TEST_NAMES
-		test-row_operations
-		test-elementwise_operations
-		test-vector_operations
-		test-matrix_operations
+		row_operations
+		elementwise_operations
+		vector_operations
+		matrix_operations
 	)
 	set(BENCHMARK_NAMES
 	)
@@ -113,13 +113,13 @@ if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
 	#* Packaged source code *#
 	#************************#
 	add_custom_command(
-		OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-src.zip
-		COMMAND ${CMAKE_COMMAND} -E tar c ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-src.zip --format=zip -- ${PACKAGE_FILES}
+		OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/src.zip
+		COMMAND ${CMAKE_COMMAND} -E tar c ${CMAKE_CURRENT_BINARY_DIR}/src.zip --format=zip -- ${PACKAGE_FILES}
 		WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 		DEPENDS ${PACKAGE_FILES}
 	)
 	add_custom_target(
 		src_package 
-		DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-src.zip
+		DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/src.zip
 	)
 endif()
