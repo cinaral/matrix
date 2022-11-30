@@ -1,20 +1,20 @@
 /*
  * matrix_op
- *  
+ *
  * MIT License
- * 
+ *
  * Copyright (c) 2022 cinaral
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
  * the Software without restriction, including without limitation the rights to
  * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
  * of the Software, and to permit persons to whom the Software is furnished to do
  * so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -31,12 +31,16 @@
 
 namespace matrix_op
 {
-//* computes <x, y> for two vector of size DIM
-//* res = <x,y>
-//*
-//* inputs:
-//* x - [DIM] vector 1
-//* y - [DIM] vector 2
+/*
+ * Returns the dot product of two vectors.
+ * 
+ * `product = dot_product(x, y)`
+ *
+ * `product`: dot product of `x` and `y`
+ *
+ * 1. `x`: vector 1
+ * 2. `y`: vector 2
+ */
 template <size_t DIM>
 static Real_T
 dot_product(const Real_T (&x)[DIM], const Real_T (&y)[DIM])
