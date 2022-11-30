@@ -34,7 +34,7 @@ namespace matrix_op
 /*
  * Returns a pointer to a row from a matrix.
  *
- * `*row = select_row(row_idx, mat)`
+ * `*row = select_row<N_ROW, M_COL>(row_idx, mat)`
  *
  * `*row`: selected row (`M_COL`) 
  *
@@ -54,7 +54,7 @@ static const Real_T (*select_row(const size_t row_idx, const Real_T (&mat)[N_ROW
 /*
  * Replaces a row of an matrix by a vector.
  *
- * `replace_row(row_idx, row, mat)`
+ * `replace_row<OPT: N_ROW, M_COL>(row_idx, row, mat)`
  *
  * 1. `row_idx`: row index
  * 2. `row`: vector (`M_COL`)

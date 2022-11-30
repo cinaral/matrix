@@ -36,7 +36,7 @@ namespace matrix_op
 /*
  * Transposes an A matrix.
  *
- * `transpose(A, OUT:A_tr)`
+ * `transpose<N_ROW, M_COL>(A, OUT:A_tr)`
  *
  * `A`: a matrix (`N_ROW` by `M_COL`)
  *
@@ -57,7 +57,7 @@ transpose(const Real_T (&A)[N_ROW * M_COL], Real_T (&A_tr)[N_ROW * M_COL])
 /*
  * Computes right multiply A*x for an matrix A of size N_ROW by M_COL and vector x of size N_ROW.
  *
- * `right_multiply(A, x, OUT:mul)`
+ * `right_multiply<OPT: N_ROW, M_COL>(A, x, OUT:mul)`
  *
  * `A`: a matrix
  * `x`: a vector
@@ -71,21 +71,21 @@ right_multiply(const Real_T (&A)[N_ROW * M_COL], const Real_T (&x)[M_COL], Real_
 {
 	for (size_t i = 0; i < N_ROW; ++i) {
 		const Real_T(&a)[M_COL] = *matrix_op::select_row<N_ROW, M_COL>(i, A);
-		mul[i] = dot_product<M_COL>(a, x);
+		mul[i] = dot_product(a, x);
 	}
 }
 
 /*
-* matrix multiplication
-*
-* `multiply(A, B, OUT:mul)`
-*
-* `A`: matrix 1
-* `B`: matrix 2
-*
-* OUT:
-* `mul`: multiplication result  (`A * B`)
-*/
+ * matrix multiplication
+ *
+ * `multiply<N_ROW_A, M_COL_A, M_COL_B>(A, B, OUT:mul)`
+ *
+ * `A`: matrix 1
+ * `B`: matrix 2
+ *
+ * OUT:
+ * `mul`: multiplication result  (`A * B`)
+ */
 template <size_t N_ROW_A, size_t M_COL_A, size_t M_COL_B>
 static void
 multiply(const Real_T (&A)[N_ROW_A * M_COL_A], const Real_T (&B)[M_COL_A * M_COL_B],

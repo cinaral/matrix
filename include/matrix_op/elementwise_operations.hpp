@@ -32,9 +32,9 @@
 namespace matrix_op
 {
 /*
- * Scales an array of DIM with a scalar. x_scaled = scale*x
+ * Scales an array with a scalar.
  *
- * scale(scale, x, OUT:x_scaled)
+ * scale<OPT: DIM>(scale, x, OUT:x_scaled)
  *
  * `scale`: scaling factor
  * `x`: array
@@ -52,9 +52,9 @@ scale(const Real_T scale, const Real_T (&x)[DIM], Real_T (&x_scaled)[DIM])
 }
 
 /*
- * Sums two arrays of DIM size.
+ * Sums two arrays.
  *
- * `sum(x, y, OUT:sum)`
+ * `sum<OPT: DIM>(x, y, OUT:sum)`
  *
  * `x`: array 1
  * `y`: array 2
@@ -74,7 +74,7 @@ sum(const Real_T (&x)[DIM], const Real_T (&y)[DIM], Real_T (&sum)[DIM])
 /*
  * Subtracts two arrays.
  *
- * `subtract(x, y, sub)`
+ * `subtract<OPT: DIM>(x, y, sub)`
  *
  * `x`: array 1
  * `y`: array 2
@@ -92,8 +92,8 @@ subtract(const Real_T (&x)[DIM], const Real_T (&y)[DIM], Real_T (&sub)[DIM])
 }
 
 /*
- * Sums two arrays of DIM size after weighting.
- * `weighted_sum(x_weight, x, y_weight, y, sum)`
+ * Sums two arrays after weighting.
+ * `weighted_sum<OPT: DIM>(x_weight, x, y_weight, y, sum)`
  *
  * `x_weight`: weight of x array
  * `x`: array 1

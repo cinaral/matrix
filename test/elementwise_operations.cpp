@@ -1,7 +1,7 @@
 #include "matrix_op/elementwise_operations.hpp"
 
-using matrix_op::size_t;
 using matrix_op::Real_T;
+using matrix_op::size_t;
 
 constexpr size_t dim = 3;
 constexpr Real_T x[dim] = {1, 1.5, -2};

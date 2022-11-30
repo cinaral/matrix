@@ -34,7 +34,7 @@ namespace matrix_op
 /*
  * Returns the dot product of two vectors.
  * 
- * `product = dot_product(x, y)`
+ * `product = dot_product<OPT: DIM>(x, y)`
  *
  * `product`: dot product of `x` and `y`
  *
