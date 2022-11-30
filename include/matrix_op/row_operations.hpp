@@ -54,7 +54,7 @@ static const Real_T (*select_row(const size_t row_idx, const Real_T (&mat)[N_ROW
 /*
  * Replaces a row of an matrix by a vector.
  *
- * `replace_row<OPT: N_ROW, M_COL>(row_idx, row, mat)`
+ * `replace_row<N_ROW, OPT: M_COL>(row_idx, row, mat)`
  *
  * 1. `row_idx`: row index
  * 2. `row`: vector (`M_COL`)
