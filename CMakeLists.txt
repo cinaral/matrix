@@ -13,6 +13,7 @@ if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
 	option(BUILD_TESTS "Build tests" ON)
 	option(BUILD_BENCHMARKS "Build benchmarks" ON)
 	option(SINGLE_PRECISION "Single precision" OFF)
+
 	#* where to look for the project header and source files
 	set(INCLUDE_DIR ${CMAKE_CURRENT_LIST_DIR}/include)
 	set(SRC_DIR ${CMAKE_CURRENT_LIST_DIR}/src)
@@ -21,10 +22,10 @@ if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
 
 	#* tests, examples, benchmarks to compile
 	set(TEST_NAMES
-		row_operations
-		elementwise_operations
-		vector_operations
-		matrix_operations
+		row_op-test
+		elementwise_op-test
+		vector_op-test
+		matrix_op-test
 	)
 	set(BENCHMARK_NAMES
 	)
@@ -77,19 +78,19 @@ if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
 
 		foreach(ELEMENT ${TEST_NAMES})
 			add_executable(
-				${ELEMENT}-test
+				${ELEMENT}
 				${TEST_DIR}/${ELEMENT}.cpp						
 			)
 			target_include_directories(
-				${ELEMENT}-test PRIVATE 
+				${ELEMENT} PRIVATE 
 				${INCLUDE_DIR}
 			)
 			target_compile_options(
-				${ELEMENT}-test PRIVATE
+				${ELEMENT} PRIVATE
 			)
 			add_test(
-				NAME ${ELEMENT}-test 
-				COMMAND ${ELEMENT}-test
+				NAME ${ELEMENT} 
+				COMMAND ${ELEMENT}
 				WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
 			)
 		endforeach(ELEMENT ${TEST_NAMES})
@@ -99,18 +100,17 @@ if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
 	#* Benchmark *#
 	#*************#
 	if(BUILD_BENCHMARKS)
-
 		foreach(ELEMENT ${BENCHMARK_NAMES})
 			add_executable(
-				${ELEMENT}-benchmark 
+				${ELEMENT} 
 				${BENCHMARK_DIR}/${ELEMENT}.cpp
 			)
 			target_include_directories(
-				${ELEMENT}-benchmark  PRIVATE 
+				${ELEMENT}  PRIVATE 
 				${INCLUDE_DIR}	
 			)
 			target_compile_options(
-				${ELEMENT}-benchmark PRIVATE
+				${ELEMENT} PRIVATE
 				-O3 #* optimization level
 				-m64 #* x64
 				-mavx2 #* enable avx2
