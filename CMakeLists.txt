@@ -9,10 +9,10 @@ project(
 
 
 if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
-	option(SINGLE_PRECISION "Single precision" OFF)
+	option(DEBUG_BUILD "Build everything in debug mode" ON)
 	option(BUILD_TESTS "Build tests" ON)
-	option(BUILD_BENCHMARKS "Build bencmarks" ON)
-
+	option(BUILD_BENCHMARKS "Build benchmarks" ON)
+	option(SINGLE_PRECISION "Single precision" OFF)
 	#* where to look for the project header and source files
 	set(INCLUDE_DIR ${CMAKE_CURRENT_LIST_DIR}/include)
 	set(SRC_DIR ${CMAKE_CURRENT_LIST_DIR}/src)
@@ -53,6 +53,17 @@ if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
 		-Wextra #* more warnings
 		-Wpedantic #* more warnings
 	)
+	
+	if(DEBUG_BUILD)
+		add_compile_options(
+			-g #* debug symbols
+			-Og #* debug optimization
+		)
+	else()
+		add_compile_options(
+			-O3 #* release optimization
+		)
+	endif()
 
 	if(SINGLE_PRECISION)
 		add_compile_options(-D__USE_SINGLE_PRECISION__) #* use single precision floats
