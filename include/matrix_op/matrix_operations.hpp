@@ -1,20 +1,20 @@
 /*
  * matrix_op
- *  
+ *
  * MIT License
- * 
+ *
  * Copyright (c) 2022 cinaral
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
  * the Software without restriction, including without limitation the rights to
  * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
  * of the Software, and to permit persons to whom the Software is furnished to do
  * so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -33,11 +33,16 @@
 
 namespace matrix_op
 {
-//* Transposes A matrix
-//* A_tr = A^T
-//*
-//* inputs:
-//* A - [N_ROW * M_COL] matrix
+/*
+ * Transposes an A matrix.
+ *
+ * `transpose<N_ROW, M_COL>(A, OUT:A_tr)`
+ *
+ * `A`: a matrix (`N_ROW` by `M_COL`)
+ *
+ * OUT:
+ * `A_tr`: transposed matrix (`M_COL` by `N_ROW`)
+ */
 template <size_t N_ROW, size_t M_COL>
 static void
 transpose(const Real_T (&A)[N_ROW * M_COL], Real_T (&A_tr)[N_ROW * M_COL])
@@ -49,31 +54,42 @@ transpose(const Real_T (&A)[N_ROW * M_COL], Real_T (&A_tr)[N_ROW * M_COL])
 	}
 }
 
-//* computes right multiply A*x for an matrix A of size N_ROW by M_COL and vector x of size N_ROW
-//* res = A*x
-//*
-//* inputs:
-//* A - [N_ROW * M_COL] matrix
-//* x - [M_COL] vector
+/*
+ * Computes right multiply A*x for an matrix A of size N_ROW by M_COL and vector x of size N_ROW.
+ *
+ * `right_multiply<OPT: N_ROW, M_COL>(A, x, OUT:mul)`
+ *
+ * `A`: a matrix
+ * `x`: a vector
+ *
+ * OUT:
+ * `mul`: multiplication result (`A * x`)
+ */
 template <size_t N_ROW, size_t M_COL>
 static void
 right_multiply(const Real_T (&A)[N_ROW * M_COL], const Real_T (&x)[M_COL], Real_T (&mul)[N_ROW])
 {
 	for (size_t i = 0; i < N_ROW; ++i) {
-		const Real_T (&a)[M_COL] = *matrix_op::select_row<N_ROW, M_COL>(i, A);
-		mul[i] = dot_product<M_COL>(a, x);
+		const Real_T(&a)[M_COL] = *matrix_op::select_row<N_ROW, M_COL>(i, A);
+		mul[i] = dot_product(a, x);
 	}
 }
 
-//* matrix multiplication
-//* mul = A*B
-//*
-//* inputs:
-//* A - [N_ROW_A * M_COL_A] matrix
-//* B - [M_COL_A * M_COL_B] matrix
+/*
+ * matrix multiplication
+ *
+ * `multiply<N_ROW_A, M_COL_A, M_COL_B>(A, B, OUT:mul)`
+ *
+ * `A`: matrix 1
+ * `B`: matrix 2
+ *
+ * OUT:
+ * `mul`: multiplication result  (`A * B`)
+ */
 template <size_t N_ROW_A, size_t M_COL_A, size_t M_COL_B>
 static void
-multiply(const Real_T (&A)[N_ROW_A * M_COL_A], const Real_T (&B)[M_COL_A * M_COL_B], Real_T (&mul)[N_ROW_A * M_COL_B])
+multiply(const Real_T (&A)[N_ROW_A * M_COL_A], const Real_T (&B)[M_COL_A * M_COL_B],
+         Real_T (&mul)[N_ROW_A * M_COL_B])
 {
 	for (size_t i = 0; i < N_ROW_A * M_COL_B; ++i) {
 		mul[i] = 0;

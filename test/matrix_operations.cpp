@@ -21,7 +21,7 @@ main()
 	matrix_op::transpose<n_row_A, m_col_A>(A, A_tr);
 
 	Real_T mul[m_col_A];
-	matrix_op::right_multiply<m_col_A, n_row_A>(A_tr, x, mul);
+	matrix_op::right_multiply(A_tr, x, mul);
 
 	Real_T AB[n_row_A * m_col_B];
 	matrix_op::multiply<n_row_A, m_col_A, m_col_B>(A, B, AB);

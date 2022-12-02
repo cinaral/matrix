@@ -1,20 +1,20 @@
 /*
  * matrix_op
- *  
+ *
  * MIT License
- * 
+ *
  * Copyright (c) 2022 cinaral
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
  * the Software without restriction, including without limitation the rights to
  * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
  * of the Software, and to permit persons to whom the Software is furnished to do
  * so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -31,12 +31,17 @@
 
 namespace matrix_op
 {
-//* scales an array of DIM with a scalar
-//* x_scaled = scale*x
-//*
-//* inputs:
-//* scale - scaling factor
-//* x - [DIM] array
+/*
+ * Scales an array with a scalar.
+ *
+ * scale<OPT: DIM>(scale, x, OUT:x_scaled)
+ *
+ * `scale`: scaling factor
+ * `x`: array
+ *
+ * OUT:
+ * `x_scaled`: scaled array (`scale*x`)
+ */
 template <size_t DIM>
 static void
 scale(const Real_T scale, const Real_T (&x)[DIM], Real_T (&x_scaled)[DIM])
@@ -46,12 +51,17 @@ scale(const Real_T scale, const Real_T (&x)[DIM], Real_T (&x_scaled)[DIM])
 	}
 }
 
-//* sums two arrays of DIM size
-//* sum = x + y
-//*
-//* inputs:
-//* x - [DIM] array 1
-//* y - [DIM] array 2
+/*
+ * Sums two arrays.
+ *
+ * `sum<OPT: DIM>(x, y, OUT:sum)`
+ *
+ * `x`: array 1
+ * `y`: array 2
+ *
+ * OUT:
+ * `sum`: summation result (`x + y`)
+ */
 template <size_t DIM>
 static void
 sum(const Real_T (&x)[DIM], const Real_T (&y)[DIM], Real_T (&sum)[DIM])
@@ -61,12 +71,17 @@ sum(const Real_T (&x)[DIM], const Real_T (&y)[DIM], Real_T (&sum)[DIM])
 	}
 }
 
-//* subtracts two arrays
-//* sub = x - y
-//*
-//* inputs:
-//* x - [DIM] array 1
-//* y - [DIM] array 2
+/*
+ * Subtracts two arrays.
+ *
+ * `subtract<OPT: DIM>(x, y, sub)`
+ *
+ * `x`: array 1
+ * `y`: array 2
+ *
+ * OUT
+ * `sub`: subtraction result (`x - y`)
+ */
 template <size_t DIM>
 static void
 subtract(const Real_T (&x)[DIM], const Real_T (&y)[DIM], Real_T (&sub)[DIM])
@@ -76,23 +91,27 @@ subtract(const Real_T (&x)[DIM], const Real_T (&y)[DIM], Real_T (&sub)[DIM])
 	}
 }
 
-//* sums two arrays of DIM size with weights
-//* sum = x_weight*x + y_weight*y
-//*
-//* inputs:
-//* x_weight - weight of x
-//* x - [DIM] array 1
-//* y_weight - weight of y
-//* y - [DIM] array 2
+/*
+ * Sums two arrays after weighting.
+ * `weighted_sum<OPT: DIM>(x_weight, x, y_weight, y, sum)`
+ *
+ * `x_weight`: weight of x array
+ * `x`: array 1
+ * `y_weight`: weight of y array
+ * `y`: array 2
+ *
+ * OUT:
+ * `sum`: weighted summation result (`x_weight * x + y_weight * y`)
+ */
+
 template <size_t DIM>
 static void
-weighted_sum(const Real_T x_weight, const Real_T (&x)[DIM], const Real_T y_weight, const Real_T (&y)[DIM],
-             Real_T (&sum)[DIM])
+weighted_sum(const Real_T x_weight, const Real_T (&x)[DIM], const Real_T y_weight,
+             const Real_T (&y)[DIM], Real_T (&sum)[DIM])
 {
 	for (size_t i = 0; i < DIM; ++i) {
 		sum[i] = x_weight * x[i] + y_weight * y[i];
 	}
 }
 } // namespace matrix_op
-
 #endif
