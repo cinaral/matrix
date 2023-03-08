@@ -42,7 +42,7 @@ namespace matrix_op
  * 2. `mat`: a matrix (`M_COL` by `N_ROW`)
  *
  * Usage:
- * `const Real_T (&row) = *matrix_op::select_row<N_ROW, M_COL>(row_idx, mat);`
+ * `const Real_T (&row)[M_COL] = *matrix_op::select_row<N_ROW, M_COL>(row_idx, mat);`
  */
 template <size_t N_ROW, size_t M_COL>
 static const Real_T (*select_row(const size_t row_idx, const Real_T (&mat)[N_ROW * M_COL]))[M_COL]
