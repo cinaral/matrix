@@ -31,48 +31,15 @@
 
 namespace matrix_op
 {
-/*
- * Returns a pointer to a row from a matrix.
- *
- * `*row = select_row<N_ROW, M_COL>(row_idx, mat)`
- *
- * `*row`: selected row (`M_COL`) 
- *
- * 1. `row_idx`: row index
- * 2. `mat`: a matrix (`M_COL` by `N_ROW`)
- *
- * Usage:
- * `const Real_T (&row)[M_COL] = *matrix_op::select_row<N_ROW, M_COL>(row_idx, mat);`
- */
-template <size_t N_ROW, size_t M_COL>
-static const Real_T (*select_row(const size_t row_idx, const Real_T (&mat)[N_ROW * M_COL]))[M_COL]
-{
-	const Real_T(*row_ptr)[M_COL] = (Real_T(*)[M_COL])(mat + row_idx * M_COL);
-	return row_ptr;
-}
-
-/*
+/* `replace_row<OPT:N_ROW, M_COL>(row_idx, row, mat)`:
  * Replaces a row of an matrix by a vector.
- *
- * `replace_row<N_ROW, OPT: M_COL>(row_idx, row, mat)`
- *
- * 1. `row_idx`: row index
- * 2. `row`: vector (`M_COL`)
- *
- * OUT:
- * 3. `mat`: the matrix with its row replaced (`N_ROW` by `M_COL`)
- *
- * Usage:
- * `matrix_op::replace_row<N_ROW, OPT:M_COL>(row_idx, row, mat);`
  */
 template <size_t N_ROW, size_t M_COL>
 static void
-replace_row(const size_t row_idx, const Real_T (&row)[M_COL], Real_T (&mat)[N_ROW * M_COL])
+replace_row(const size_t row_idx, const Real_T (&row)[M_COL], Real_T (&mat)[N_ROW][M_COL])
 {
-	//* faster than std::memmove(mat + row_idx * M_COL, row, M_COL * sizeof(Real_T));
-	//* identical to: *mat + row_idx * M_COL + i = *row + i
 	for (size_t i = 0; i < M_COL; ++i) {
-		mat[row_idx * M_COL + i] = row[i];
+		mat[row_idx][i] = row[i];
 	}
 }
 } // namespace matrix_op

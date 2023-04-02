@@ -31,24 +31,17 @@
 
 namespace matrix_op
 {
-/*
+/* `x * y = dot_product<OPT:DIM>(x, y)`:
  * Returns the dot product of two vectors.
- * 
- * `product = dot_product<OPT: DIM>(x, y)`
- *
- * `product`: dot product of `x` and `y`
- *
- * 1. `x`: vector 1
- * 2. `y`: vector 2
  */
 template <size_t DIM>
-static Real_T
-dot_product(const Real_T (&x)[DIM], const Real_T (&y)[DIM])
+Real_T
+dot_product(const Real_T (&u)[DIM], const Real_T (&v)[DIM])
 {
 	Real_T res = 0;
 
 	for (size_t i = 0; i < DIM; ++i) {
-		res += x[i] * y[i];
+		res += u[i] * v[i];
 	}
 	return res;
 }

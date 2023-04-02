@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.13)
 
 project(
 	matrix_op
-	VERSION 1.0.7
+	VERSION 1.1.0
 	LANGUAGES CXX
 )
 
@@ -11,6 +11,7 @@ project(
 if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
 	option(DEBUG_BUILD "Build everything in debug mode" ON)
 	option(BUILD_TESTS "Build tests" ON)
+	option(BUILD_EXAMPLES "Build examples" ON)
 	option(BUILD_BENCHMARKS "Build benchmarks" ON)
 	option(SINGLE_PRECISION "Single precision" OFF)
 
@@ -18,7 +19,8 @@ if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
 	set(INCLUDE_DIR ${CMAKE_CURRENT_LIST_DIR}/include)
 	set(SRC_DIR ${CMAKE_CURRENT_LIST_DIR}/src)
 	set(TEST_DIR ${CMAKE_CURRENT_LIST_DIR}/test)
-	set(BENCHMARK_DIR ${CMAKE_CURRENT_LIST_DIR}/src)
+	set(EXAMPLE_DIR ${CMAKE_CURRENT_LIST_DIR}/examples)
+	set(BENCHMARK_DIR ${CMAKE_CURRENT_LIST_DIR}/benchmarks)
 
 	#* tests, examples, benchmarks to compile
 	set(TEST_NAMES
@@ -26,6 +28,9 @@ if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
 		elementwise_op-test
 		vector_op-test
 		matrix_op-test
+	)
+	set(EXAMPLE_NAMES
+		matrix_op_example
 	)
 	set(BENCHMARK_NAMES
 	)
@@ -94,6 +99,25 @@ if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
 				WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
 			)
 		endforeach(ELEMENT ${TEST_NAMES})
+	endif()
+
+	#************#
+	#* Examples *#
+	#************#
+	if(BUILD_EXAMPLES)
+		foreach(ELEMENT ${EXAMPLE_NAMES})
+			add_executable(
+				${ELEMENT}
+				${EXAMPLE_DIR}/${ELEMENT}.cpp						
+			)
+			target_include_directories(
+				${ELEMENT} PRIVATE 
+				${INCLUDE_DIR}
+			)
+			target_compile_options(
+				${ELEMENT} PRIVATE
+			)
+		endforeach(ELEMENT ${EXAMPLE_NAMES})
 	endif()
 
 	#*************#
