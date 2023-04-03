@@ -31,6 +31,32 @@
 
 namespace matrix_op
 {
+/* `copy<OPT: DIM>(u, v)`:
+ * Copy a vector to another
+ */
+template <size_t DIM>
+static void
+copy(const Real_T (&u)[DIM], Real_T (&v)[DIM])
+{
+	for (size_t i = 0; i < DIM; ++i) {
+		v[i] = u[i];
+	}
+}
+
+/* `copy<OPT:N_DIM, M_DIM>(u, v)`:
+ * Copy a matrix to another
+ */
+template <size_t N_DIM, size_t M_DIM>
+static void
+copy(const Real_T (&u)[N_DIM][M_DIM], Real_T (&v)[N_DIM][M_DIM])
+{
+	for (size_t i = 0; i < N_DIM; ++i) {
+		for (size_t j = 0; j < M_DIM; ++j) {
+			v[i][j] = u[i][j];
+		}
+	}
+}
+
 /* `scale(scale, v, OUT:scale * v)`:
  * Scales a vector with a scalar.
  */
@@ -43,7 +69,7 @@ scale(const Real_T scale, const Real_T (&v)[DIM], Real_T (&v_scaled)[DIM])
 	}
 }
 
-/* `scale(scale, A, OUT:scale * A)`:
+/* `scale<OPT:N_DIM, M_DIM>(scale, A, OUT:scale * A)`:
  * Scales a matrix with a scalar.
  */
 template <size_t N_DIM, size_t M_DIM>
@@ -57,7 +83,7 @@ scale(const Real_T scale, const Real_T (&A)[N_DIM][M_DIM], Real_T (&A_scaled)[N_
 	}
 }
 
-/* `sum(u, v, OUT:u + v)`:
+/* `sum<OPT:DIM>(u, v, OUT:u + v)`:
  * Sums two vectors.
  */
 template <size_t DIM>
@@ -69,7 +95,7 @@ sum(const Real_T (&u)[DIM], const Real_T (&v)[DIM], Real_T (&sum)[DIM])
 	}
 }
 
-/* `sum(A, B, OUT:A + B)`:
+/* `sum<OPT:N_DIM, M_DIM>(A, B, OUT:A + B)`:
  * Sums two matrices.
  */
 template <size_t N_DIM, size_t M_DIM>
@@ -83,7 +109,7 @@ sum(const Real_T (&A)[N_DIM][M_DIM], const Real_T (&B)[N_DIM][M_DIM], Real_T (&s
 	}
 }
 
-/* `subtract(u, v, OUT:u - v)`:
+/* `subtract<OPT:DIM>(u, v, OUT:u - v)`:
  * Subtracts two vectors.
  */
 template <size_t DIM>
@@ -95,7 +121,7 @@ subtract(const Real_T (&x)[DIM], const Real_T (&y)[DIM], Real_T (&sub)[DIM])
 	}
 }
 
-/* `subtract(A, B, OUT:A - B)`:
+/* `subtract<OPT:N_DIM, M_DIM>(A, B, OUT:A - B)`:
  * Subtracts two matrices.
  */
 template <size_t N_DIM, size_t M_DIM>
@@ -110,7 +136,7 @@ subtract(const Real_T (&A)[N_DIM][M_DIM], const Real_T (&B)[N_DIM][M_DIM],
 	}
 }
 
-/*  `weighted_sum(u_weight, u, v_weight, v, OUT:u_weight * u + v_weight * v)`:
+/*  `weighted_sum<OPT:DIM>(u_weight, u, v_weight, v, OUT:u_weight * u + v_weight * v)`:
  * Sums two vectors after weighting.
  */
 template <size_t DIM>
@@ -123,7 +149,7 @@ weighted_sum(const Real_T u_weight, const Real_T (&u)[DIM], const Real_T v_weigh
 	}
 }
 
-/*  `weighted_sum(A_weight, A, B_weight, B, OUT:A_weight * A + B_weight * B)`:
+/*  `weighted_sum<OPT:N_DIM, M_DIM>(A_weight, A, B_weight, B, OUT:A_weight * A + B_weight * B)`:
  * Sums two matrices after weighting.
  */
 template <size_t N_DIM, size_t M_DIM>

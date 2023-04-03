@@ -33,58 +33,50 @@
 
 namespace matrix_op
 {
-/* `transpose<OPT:N_ROW, M_COL>(A, OUT:A_transposed)'
+/* `transpose<OPT:N_DIM, M_DIM>(A, OUT:A_transposed)'
  * Transposes a matrix.
  */
-template <size_t N_ROW, size_t M_COL>
-static void
-transpose(const Real_T (&A)[N_ROW][M_COL], Real_T (&A_transpose)[M_COL][N_ROW])
+template <size_t N_DIM, size_t M_DIM>
+void
+transpose(const Real_T (&A)[N_DIM][M_DIM], Real_T (&A_transpose)[M_DIM][N_DIM])
 {
-	for (size_t i = 0; i < N_ROW; ++i) {
-		for (size_t j = 0; j < M_COL; ++j) {
+	for (size_t i = 0; i < N_DIM; ++i) {
+		for (size_t j = 0; j < M_DIM; ++j) {
 			A_transpose[j][i] = A[i][j];
 		}
 	}
 }
 
-/* `right_multiply<OPT:N_ROW, M_COL>(A, v, OUT:A * v)`:
- * Computes right multiply A*x for an matrix A of size N_ROW by M_COL and vector x of size N_ROW.
+/* `right_multiply<OPT:N_DIM, M_DIM>(A, v, OUT:A * v)`:
+ * Computes right multiply A*x for an matrix A of size N_DIM by M_DIM and vector x of size N_DIM.
  */
-template <size_t N_ROW, size_t M_COL>
-static void
-right_multiply(const Real_T (&A)[N_ROW][M_COL], const Real_T (&x)[M_COL], Real_T (&mul)[N_ROW])
+template <size_t N_DIM, size_t M_DIM>
+void
+right_multiply(const Real_T (&A)[N_DIM][M_DIM], const Real_T (&x)[M_DIM], Real_T (&mul)[N_DIM])
 {
-	for (size_t i = 0; i < N_ROW; ++i) {
-		const Real_T(&a)[M_COL] = A[i];
+	for (size_t i = 0; i < N_DIM; ++i) {
+		const Real_T(&a)[M_DIM] = A[i];
 		mul[i] = dot_product(a, x);
 	}
 }
 
-/*
- * matrix multiplication
- *
- * `multiply<OPT:N_ROW_A, M_COL_A, M_COL_B>(A, B, OUT:mul)`
- *
- * `A`: matrix 1
- * `B`: matrix 2
- *
- * OUT:
- * `mul`: multiplication result  (`A * B`)
+/* `multiply<OPT:A_N_DIM, A_M_DIM, B_M_DIM>(A, B, OUT:mul)`:
+ * matrix multiplication of A[A_N_DIM][A_M_DIM] and B[B_N_DIM][B_M_DIM].
  */
-template <size_t A_N_ROW, size_t A_M_COL, size_t B_M_COL>
-static void
-multiply(const Real_T (&A)[A_N_ROW][A_M_COL], const Real_T (&B)[A_M_COL][B_M_COL],
-         Real_T (&mul)[A_N_ROW][B_M_COL])
+template <size_t A_N_DIM, size_t A_M_DIM, size_t B_M_DIM>
+void
+multiply(const Real_T (&A)[A_N_DIM][A_M_DIM], const Real_T (&B)[A_M_DIM][B_M_DIM],
+         Real_T (&mul)[A_N_DIM][B_M_DIM])
 {
-	for (size_t i = 0; i < A_N_ROW; ++i) {
-		for (size_t j = 0; j < B_M_COL; ++j) {
+	for (size_t i = 0; i < A_N_DIM; ++i) {
+		for (size_t j = 0; j < B_M_DIM; ++j) {
 			mul[i][j] = 0;
 		}
 	}
 
-	for (size_t i = 0; i < A_N_ROW; ++i) {
-		for (size_t k = 0; k < A_M_COL; ++k) {
-			for (size_t j = 0; j < B_M_COL; ++j) {
+	for (size_t i = 0; i < A_N_DIM; ++i) {
+		for (size_t k = 0; k < A_M_DIM; ++k) {
+			for (size_t j = 0; j < B_M_DIM; ++j) {
 				mul[i][j] += A[i][k] * B[k][j];
 			}
 		}

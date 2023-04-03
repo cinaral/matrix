@@ -27,20 +27,32 @@
 #ifndef ROW_OPERATIONS_HPP_CINARAL_220924_1502
 #define ROW_OPERATIONS_HPP_CINARAL_220924_1502
 
+#include "elementwise_operations.hpp"
 #include "types.hpp"
 
 namespace matrix_op
 {
-/* `replace_row<OPT:N_ROW, M_COL>(row_idx, row, mat)`:
- * Replaces a row of an matrix by a vector.
+/* `*matrix_op::select_row<OPT:N_ROW, M_COL>(row_idx, mat)`:
+ * Returns a pointer to a row from a flattened matrix.
+ *
+ * Usage:
+ * `const Real_T (&row)[M_COL] = *matrix_op::select_row(row_idx, mat);`
  */
 template <size_t N_ROW, size_t M_COL>
-static void
-replace_row(const size_t row_idx, const Real_T (&row)[M_COL], Real_T (&mat)[N_ROW][M_COL])
+const Real_T (*select_row(const size_t row_idx, const Real_T (&mat)[N_ROW * M_COL]))[M_COL]
 {
-	for (size_t i = 0; i < M_COL; ++i) {
-		mat[row_idx][i] = row[i];
-	}
+	const Real_T(*row_ptr)[M_COL] = (Real_T(*)[M_COL])(mat + row_idx * M_COL);
+	return row_ptr;
+}
+
+/* `replace_row<OPT:N_DIM, M_DIM>(row_idx, row, mat)`:
+ * Replaces a row of a matrix by a vector.
+ */
+template <size_t N_DIM, size_t M_DIM>
+void
+replace_row(const size_t row_idx, const Real_T (&row)[M_DIM], Real_T (&mat)[N_DIM][M_DIM])
+{
+	copy(row, mat[row_idx]);
 }
 } // namespace matrix_op
 
